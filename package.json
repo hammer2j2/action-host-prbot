@@ -1,0 +1,45 @@
+{
+  "name": "example-github-action",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Probot & GitHub Action example",
+  "scripts": {
+    "test": "node test/app.test.js",
+    "build": "ncc build index.js -o dist"
+  },
+  "author": "Gregor Martynus (https://twitter.com/gr2m)",
+  "license": "ISC",
+  "repository": "github:probot/example-github-action",
+  "dependencies": {
+    "@probot/adapter-github-actions": "^3.1.1"
+  },
+  "devDependencies": {
+    "@semantic-release/git": "^10.0.1",
+    "@zeit/ncc": "^0.22.3",
+    "semantic-release": "^19.0.5",
+    "nock": "^13.2.9",
+    "uvu": "^0.5.6"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "dist/index.js"
+          ],
+          "message": "build(release): compiled action for ${nextRelease.version}\n\n[skip ci]"
+        }
+      ],
+      "@semantic-release/github"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  }
+}
